@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Games;
 
 namespace Grades
 {
@@ -18,13 +19,21 @@ namespace Grades
             get { return _name; }
             set
             {
-                if (!String.IsNullOrEmpty(_name))
+                if (!String.IsNullOrEmpty(value))
                 {
+                    if (_name != value)
+                    {
+                        NameChangeEventArgs args = new NameChangeEventArgs();
+                        args.ExistingName = _name;
+                        args.NewName = value;
+                        NameChanged(this, args);
+                    }
                     _name = value;
                 }
             }
         }
 
+        public event NameChangedDelegate NameChanged;
         private string _name;
         private List<float> grades;
 

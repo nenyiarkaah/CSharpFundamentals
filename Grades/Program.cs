@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Games;
 
 namespace Grades
 {
@@ -12,8 +13,11 @@ namespace Grades
         {
             
             GradeBook book = new GradeBook();
+
+            book.NameChanged += OnNameChange;
+
             book.Name = "Scott's Grade Book";
-            book.Name = null;
+            book.Name = "Grade Book";
             book.AddGrade(91);
             book.AddGrade(89.5f);
             book.AddGrade(75);
@@ -29,5 +33,11 @@ namespace Grades
         {
             Console.WriteLine($"{description}: {result}");
         }
+
+        static void OnNameChange(object sender, NameChangeEventArgs args)
+        {
+            Console.WriteLine($"Grade book changing name from {args.ExistingName} to {args.NewName}");
+        }
+        
     }
 }
